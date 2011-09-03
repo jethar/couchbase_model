@@ -1,6 +1,7 @@
 # CouchBase Model: CouchBase, working on the new CouchBase Server
 
 CouchBase Models, built from CouchBase Model is an effort to provide model interface on the offical ruby gem for couchbase - couchbase-ruby-client.
+*WARNING:* This is still in early stages of transformation and yet not ready for use. 
 
 ## Documentation
 
