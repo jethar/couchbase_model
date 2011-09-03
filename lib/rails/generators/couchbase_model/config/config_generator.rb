@@ -1,6 +1,6 @@
-require 'rails/generators/couchrest_model'
+require 'rails/generators/couchbase_model'
 
-module CouchrestModel
+module CouchbaseModel
   module Generators
     class ConfigGenerator < Rails::Generators::Base
       source_root File.expand_path('../templates', __FILE__)
@@ -10,7 +10,7 @@ module CouchrestModel
       end
 
       def copy_configuration_file
-        template 'couchdb.yml', File.join('config', "couchdb.yml")
+        template 'couchbase.yml', File.join('config', "couchbase.yml")
       end
 
     end

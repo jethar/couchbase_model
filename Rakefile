@@ -22,7 +22,7 @@ Rake::RDocTask.new do |rdoc|
   files = ["README.rdoc", "LICENSE", "lib/**/*.rb"]
   rdoc.rdoc_files.add(files)
   rdoc.main = "README.rdoc"
-  rdoc.title = "CouchRest: Ruby CouchDB, close to the metal"
+  rdoc.title = "CouchBase: Ruby CouchBase, Working with new CouchBase Server"
 end
 
 desc "Run the rspec"

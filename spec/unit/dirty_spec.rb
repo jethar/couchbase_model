@@ -1,13 +1,13 @@
 require "spec_helper"
 
 class WithCastedModelMixin
-  include CouchRest::Model::CastedModel
+  include CouchBase::Model::CastedModel
   property :name
   property :details, Object, :default => {}
   property :casted_attribute, WithCastedModelMixin
 end 
 
-class DirtyModel < CouchRest::Model::Base
+class DirtyModel < CouchBase::Model::Base
   use_database DB
 
   property :casted_attribute, WithCastedModelMixin
@@ -19,7 +19,7 @@ class DirtyModel < CouchRest::Model::Base
   end
 end
 
-class DirtyUniqueIdModel < CouchRest::Model::Base
+class DirtyUniqueIdModel < CouchBase::Model::Base
   use_database DB
   attr_accessor :code
   unique_id :code

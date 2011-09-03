@@ -1,6 +1,6 @@
-module CouchRest
+module CouchBase
 
-  # CouchRest Model Configuration support, stolen from Carrierwave by jnicklas
+  # CouchBase Model Configuration support, stolen from Carrierwave by jnicklas
   #    http://github.com/jnicklas/carrierwave/blob/master/lib/carrierwave/uploader/configuration.rb
 
   module Model
@@ -16,17 +16,17 @@ module CouchRest
         add_config :connection_config_file
 
         configure do |config|
-          config.model_type_key = 'type' # was 'couchrest-type'
+          config.model_type_key = 'type' # was 'couchbase-type'
           config.mass_assign_any_attribute = false
           config.auto_update_design_doc = true
 
           config.environment = :development
-          config.connection_config_file = File.join(Dir.pwd, 'config', 'couchdb.yml')
+          config.connection_config_file = File.join(Dir.pwd, 'config', 'couchbase.yml')
           config.connection = {
             :protocol => 'http',
             :host     => 'localhost',
-            :port     => '5984',
-            :prefix   => 'couchrest',
+            :port     => '8091',
+            :prefix   => 'couchbase',
             :suffix   => nil,
             :join     => '_',
             :username => nil,

@@ -5,7 +5,7 @@ require "bundler/setup"
 require "rubygems"
 require "rspec"
 
-require 'couchrest_model'
+require 'couchbase_model'
 
 unless defined?(FIXTURE_PATH)
   MODEL_PATH = File.join(File.dirname(__FILE__), "fixtures", "models")
@@ -14,9 +14,9 @@ unless defined?(FIXTURE_PATH)
   FIXTURE_PATH = File.join(File.dirname(__FILE__), '/fixtures')
   SCRATCH_PATH = File.join(File.dirname(__FILE__), '/tmp')
 
-  COUCHHOST = "http://127.0.0.1:5984"
-  TESTDB    = 'couchrest-model-test'
-  TEST_SERVER    = CouchRest.new COUCHHOST
+  COUCHHOST = "http://127.0.0.1:8091"
+  TESTDB    = 'couchbase-model-test'
+  TEST_SERVER    = CouchBase.new COUCHHOST
   TEST_SERVER.default_database = TESTDB
   DB = TEST_SERVER.database(TESTDB)
 end
@@ -36,14 +36,14 @@ end
 # Require each of the fixture models
 Dir[ File.join(MODEL_PATH, "*.rb") ].sort.each { |file| require File.basename(file) }
 
-class Basic < CouchRest::Model::Base
+class Basic < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
 end
 
 def reset_test_db!
   DB.recreate! rescue nil 
   # Reset the Design Cache
-  Thread.current[:couchrest_design_cache] = {}
+  Thread.current[:couchbase_design_cache] = {}
   DB
 end
 

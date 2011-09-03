@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module CouchRest #:nodoc:
+module CouchBase #:nodoc:
   module Model #:nodoc:
 
     module Callbacks

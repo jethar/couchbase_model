@@ -1,6 +1,6 @@
 require "spec_helper"
 
-class UnattachedDoc < CouchRest::Model::Base
+class UnattachedDoc < CouchBase::Model::Base
   # Note: no use_database here
   property :title
   property :questions
@@ -126,29 +126,29 @@ describe "Proxy Class" do
 
   describe "#get!" do 
     it "raises exception when passed a nil" do 
-      expect { @us.get!(nil)}.to raise_error(CouchRest::Model::DocumentNotFound)
+      expect { @us.get!(nil)}.to raise_error(CouchBase::Model::DocumentNotFound)
     end
     
     it "raises exception when passed an empty string " do 
-      expect { @us.get!("")}.to raise_error(CouchRest::Model::DocumentNotFound)
+      expect { @us.get!("")}.to raise_error(CouchBase::Model::DocumentNotFound)
     end
     
     it "raises exception when document with provided id does not exist" do 
-      expect { @us.get!("thisisnotreallyadocumentid")}.to raise_error(CouchRest::Model::DocumentNotFound)
+      expect { @us.get!("thisisnotreallyadocumentid")}.to raise_error(CouchBase::Model::DocumentNotFound)
     end
   end
 
   describe "#find!" do 
     it "raises exception when passed a nil" do 
-      expect { @us.find!(nil)}.to raise_error(CouchRest::Model::DocumentNotFound)
+      expect { @us.find!(nil)}.to raise_error(CouchBase::Model::DocumentNotFound)
     end
     
     it "raises exception when passed an empty string " do 
-      expect { @us.find!("")}.to raise_error(CouchRest::Model::DocumentNotFound)
+      expect { @us.find!("")}.to raise_error(CouchBase::Model::DocumentNotFound)
     end
     
     it "raises exception when document with provided id does not exist" do 
-      expect { @us.find!("thisisnotreallyadocumentid")}.to raise_error(CouchRest::Model::DocumentNotFound)
+      expect { @us.find!("thisisnotreallyadocumentid")}.to raise_error(CouchBase::Model::DocumentNotFound)
     end
   end
 

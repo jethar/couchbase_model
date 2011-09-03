@@ -1,9 +1,9 @@
 # encoding: utf-8
-module CouchRest
+module CouchBase
   module Model
     module Errors
 
-      class CouchRestModelError < StandardError; end
+      class CouchBaseModelError < StandardError; end
 
       # Raised when a persisence method ending in ! fails validation. The message
       # will contain the full error messages from the +Document+ in question.
@@ -11,7 +11,7 @@ module CouchRest
       # Example:
       #
       # <tt>Validations.new(person.errors)</tt>
-      class Validations < CouchRestModelError
+      class Validations < CouchBaseModelError
         attr_reader :document
         def initialize(document)
           @document = document
@@ -20,6 +20,6 @@ module CouchRest
       end
     end
 
-    class DocumentNotFound < Errors::CouchRestModelError; end
+    class DocumentNotFound < Errors::CouchBaseModelError; end
   end
 end

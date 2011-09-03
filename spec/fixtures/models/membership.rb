@@ -1,4 +1,4 @@
 class Membership
-  include CouchRest::Model::Embeddable
+  include CouchBase::Model::Embeddable
 
 end

@@ -1,5 +1,5 @@
 
-module CouchRest
+module CouchBase
 
   module Model
 

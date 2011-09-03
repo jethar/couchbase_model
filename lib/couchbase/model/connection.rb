@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     module Connection
       extend ActiveSupport::Concern
@@ -22,11 +22,11 @@ module CouchRest
         end
 
         def server
-          @server ||= CouchRest::Server.new(prepare_server_uri)
+          @server ||= CouchBase::Server.new(prepare_server_uri)
         end
 
         def prepare_database(db = nil)
-          unless db.is_a?(CouchRest::Database)
+          unless db.is_a?(CouchBase::Database)
             conf = connection_configuration
             db = [conf[:prefix], db.to_s, conf[:suffix]].reject{|s| s.to_s.empty?}.join(conf[:join])
             self.server.database!(db)

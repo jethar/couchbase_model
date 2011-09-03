@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     module ExtendedAttachments
       extend ActiveSupport::Concern

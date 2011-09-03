@@ -9,12 +9,12 @@ describe "Model Base" do
   
   describe "instance database connection" do
     it "should use the default database" do
-      @obj.database.name.should == 'couchrest-model-test'
+      @obj.database.name.should == 'couchbase-model-test'
     end
     
     it "should override the default db" do
-      @obj.database = TEST_SERVER.database!('couchrest-extendedmodel-test')
-      @obj.database.name.should == 'couchrest-extendedmodel-test'
+      @obj.database = TEST_SERVER.database!('couchbase-extendedmodel-test')
+      @obj.database.name.should == 'couchbase-extendedmodel-test'
       @obj.database.delete!
     end
   end
@@ -71,7 +71,7 @@ describe "Model Base" do
     end
 
     it "should call after_initialize callback if available" do
-      klass = Class.new(CouchRest::Model::Base)
+      klass = Class.new(CouchBase::Model::Base)
       klass.class_eval do # for ruby 1.8.7
         property :name
         after_initialize :set_name

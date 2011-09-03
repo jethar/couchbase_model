@@ -1,13 +1,13 @@
 
 class CatToy
-  include CouchRest::Model::Embeddable
+  include CouchBase::Model::Embeddable
 
   property :name
 
   validates_presence_of :name
 end
 
-class Cat < CouchRest::Model::Base
+class Cat < CouchBase::Model::Base
   # Set the default database to use
   use_database DB
 

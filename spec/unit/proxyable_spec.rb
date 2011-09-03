@@ -1,21 +1,21 @@
 require "spec_helper"
 
-class DummyProxyable < CouchRest::Model::Base
+class DummyProxyable < CouchBase::Model::Base
   proxy_database_method :db
   def db
     'db'
   end
 end
 
-class ProxyKitten < CouchRest::Model::Base
+class ProxyKitten < CouchBase::Model::Base
 end
 
-describe CouchRest::Model::Proxyable do
+describe CouchBase::Model::Proxyable do
 
   describe "#proxy_database" do
 
     before do
-      @class = Class.new(CouchRest::Model::Base)
+      @class = Class.new(CouchBase::Model::Base)
       @class.class_eval do 
         def slug; 'proxy'; end
       end
@@ -28,8 +28,8 @@ describe CouchRest::Model::Proxyable do
 
     it "should provide proxy database from method" do
       @class.stub!(:proxy_database_method).twice.and_return(:slug)
-      @obj.proxy_database.should be_a(CouchRest::Database)
-      @obj.proxy_database.name.should eql('couchrest_proxy')
+      @obj.proxy_database.should be_a(CouchBase::Database)
+      @obj.proxy_database.name.should eql('couchbase_proxy')
     end
 
     it "should raise an error if called and no proxy_database_method set" do
@@ -57,7 +57,7 @@ describe CouchRest::Model::Proxyable do
 
     describe ".proxy_database_method" do
       before do
-        @class = Class.new(CouchRest::Model::Base)
+        @class = Class.new(CouchBase::Model::Base)
       end
       it "should be possible to set the proxy database method" do
         @class.proxy_database_method :db
@@ -84,18 +84,18 @@ describe CouchRest::Model::Proxyable do
         it "should call ModelProxy" do
           DummyProxyable.proxy_for(:cats)
           @obj = DummyProxyable.new
-          CouchRest::Model::Proxyable::ModelProxy.should_receive(:new).with(Cat, @obj, 'dummy_proxyable', 'db').and_return(true)
+          CouchBase::Model::Proxyable::ModelProxy.should_receive(:new).with(Cat, @obj, 'dummy_proxyable', 'db').and_return(true)
           @obj.should_receive(:proxy_database).and_return('db')
           @obj.cats
         end
 
         it "should call class on root namespace" do
-          class ::Document < CouchRest::Model::Base
+          class ::Document < CouchBase::Model::Base
             def self.foo; puts 'bar'; end
           end
           DummyProxyable.proxy_for(:documents)
           @obj = DummyProxyable.new
-          CouchRest::Model::Proxyable::ModelProxy.should_receive(:new).with(::Document, @obj, 'dummy_proxyable', 'db').and_return(true)
+          CouchBase::Model::Proxyable::ModelProxy.should_receive(:new).with(::Document, @obj, 'dummy_proxyable', 'db').and_return(true)
           @obj.should_receive('proxy_database').and_return('db')
           @obj.documents
         end
@@ -104,7 +104,7 @@ describe CouchRest::Model::Proxyable do
 
     describe ".proxied_by" do
       before do
-        @class = Class.new(CouchRest::Model::Base)
+        @class = Class.new(CouchBase::Model::Base)
       end
 
       it "should be provided" do
@@ -145,7 +145,7 @@ describe CouchRest::Model::Proxyable do
   describe "ModelProxy" do
 
     before :all do
-      @klass = CouchRest::Model::Proxyable::ModelProxy
+      @klass = CouchBase::Model::Proxyable::ModelProxy
     end
 
     it "should initialize and set variables" do
@@ -325,7 +325,7 @@ describe CouchRest::Model::Proxyable do
   describe "scenarios" do
 
     before :all do
-      class ProxyableCompany < CouchRest::Model::Base
+      class ProxyableCompany < CouchBase::Model::Base
         use_database DB
         property :slug
         proxy_for :proxyable_invoices
@@ -334,7 +334,7 @@ describe CouchRest::Model::Proxyable do
         end
       end
 
-      class ProxyableInvoice < CouchRest::Model::Base
+      class ProxyableInvoice < CouchBase::Model::Base
         property :client
         property :total
         proxied_by :proxyable_company

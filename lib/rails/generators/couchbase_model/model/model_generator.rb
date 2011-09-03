@@ -1,6 +1,6 @@
-require 'rails/generators/couchrest_model'
+require 'rails/generators/couchbase_model'
 
-module CouchrestModel
+module CouchbaseModel
   module Generators
     class ModelGenerator < Base
       check_class_collision
@@ -19,7 +19,7 @@ module CouchrestModel
       protected
 
         def parent_class_name
-          "CouchRest::Model::Base"
+          "CouchBase::Model::Base"
         end
 
     end

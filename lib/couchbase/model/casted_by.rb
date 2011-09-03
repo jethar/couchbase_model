@@ -1,5 +1,5 @@
 
-module CouchRest::Model
+module CouchBase::Model
   module CastedBy
     extend ActiveSupport::Concern
     included do

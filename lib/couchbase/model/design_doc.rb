@@ -1,5 +1,5 @@
 # encoding: utf-8
-module CouchRest
+module CouchBase
   module Model
     module DesignDoc
       extend ActiveSupport::Concern
@@ -7,7 +7,7 @@ module CouchRest
       module ClassMethods
 
         def design_doc
-          @design_doc ||= ::CouchRest::Design.new(default_design_doc)
+          @design_doc ||= ::CouchBase::Design.new(default_design_doc)
         end
 
         def design_doc_id
@@ -51,7 +51,7 @@ module CouchRest
         private
 
         def design_doc_cache
-          Thread.current[:couchrest_design_cache] ||= {}
+          Thread.current[:couchbase_design_cache] ||= {}
         end
         def design_doc_cache_checksum(db)
           design_doc_cache[design_doc_uri(db)]
@@ -78,7 +78,7 @@ module CouchRest
           # Load up the stored doc (if present), update, and save
           saved = stored_design_doc(db)
           if saved
-            if force || saved['couchrest-hash'] != checksum
+            if force || saved['couchbase-hash'] != checksum
               saved.merge!(design_doc)
               db.save_doc(saved)
             end

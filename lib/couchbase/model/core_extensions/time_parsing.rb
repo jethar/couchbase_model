@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     module CoreExtensions
       module TimeParsing
@@ -61,6 +61,6 @@ module CouchRest
 end
 
 Time.class_eval do
-  extend CouchRest::Model::CoreExtensions::TimeParsing
+  extend CouchBase::Model::CoreExtensions::TimeParsing
 end
 

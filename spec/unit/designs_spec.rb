@@ -1,9 +1,9 @@
 require "spec_helper"
 
-class DesignModel < CouchRest::Model::Base
+class DesignModel < CouchBase::Model::Base
 end
 
-describe CouchRest::Model::Designs do
+describe CouchBase::Model::Designs do
 
   it "should accessable from model" do
     DesignModel.respond_to?(:design).should be_true
@@ -18,7 +18,7 @@ describe CouchRest::Model::Designs do
       end
 
       it "should instantiate a new DesignMapper" do
-        CouchRest::Model::Designs::DesignMapper.should_receive(:new).with(DesignModel).and_return(@mapper)
+        CouchBase::Model::Designs::DesignMapper.should_receive(:new).with(DesignModel).and_return(@mapper)
         @mapper.should_receive(:create_view_method).with(:all)
         @mapper.should_receive(:instance_eval)
         DesignModel.design() { }
@@ -26,7 +26,7 @@ describe CouchRest::Model::Designs do
 
       it "should allow methods to be called in mapper" do
         @mapper.should_receive(:foo)
-        CouchRest::Model::Designs::DesignMapper.stub!(:new).and_return(@mapper)
+        CouchBase::Model::Designs::DesignMapper.stub!(:new).and_return(@mapper)
         DesignModel.design { foo }
       end
 
@@ -53,7 +53,7 @@ describe CouchRest::Model::Designs do
   describe "DesignMapper" do
     
     before :all do
-      @klass = CouchRest::Model::Designs::DesignMapper
+      @klass = CouchBase::Model::Designs::DesignMapper
     end
 
     it "should initialize and set model" do
@@ -68,18 +68,18 @@ describe CouchRest::Model::Designs do
       end
 
       it "should call create method on view" do
-        CouchRest::Model::Designs::View.should_receive(:create).with(DesignModel, 'test', {})
+        CouchBase::Model::Designs::View.should_receive(:create).with(DesignModel, 'test', {})
         @object.view('test')
       end
 
       it "should create a method on parent model" do
-        CouchRest::Model::Designs::View.stub!(:create)
+        CouchBase::Model::Designs::View.stub!(:create)
         @object.view('test_view')
         DesignModel.should respond_to(:test_view)
       end
 
       it "should create a method for view instance" do
-        CouchRest::Model::Designs::View.stub!(:create)
+        CouchBase::Model::Designs::View.stub!(:create)
         @object.should_receive(:create_view_method).with('test')
         @object.view('test')
       end
@@ -106,7 +106,7 @@ describe CouchRest::Model::Designs do
       end
 
       it "should create a method that returns view instance" do
-        CouchRest::Model::Designs::View.should_receive(:new).with(DesignModel, {}, 'test_view').and_return(nil)
+        CouchBase::Model::Designs::View.should_receive(:new).with(DesignModel, {}, 'test_view').and_return(nil)
         @object.create_view_method('test_view')
         DesignModel.test_view
       end

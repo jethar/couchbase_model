@@ -4,16 +4,16 @@ require 'rubygems'
 require 'benchmark'
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
-require 'couchrest_model'
+require 'couchbase_model'
 
 class BenchmarkCasted < Hash
-  include CouchRest::Model::CastedModel
+  include CouchBase::Model::CastedModel
   
   property :name
 end
 
-class BenchmarkModel < CouchRest::Model::Base
-  use_database CouchRest.database!(ENV['BENCHMARK_DB'] || "http://localhost:5984/test")
+class BenchmarkModel < CouchBase::Model::Base
+  use_database CouchBase.database!(ENV['BENCHMARK_DB'] || "http://localhost:8091/test")
 
   property :string, String
   property :number, Integer
@@ -24,7 +24,7 @@ end
 # set dirty configuration, return previous configuration setting
 def set_dirty(value)
   orig = nil
-  CouchRest::Model::Base.configure do |config|
+  CouchBase::Model::Base.configure do |config|
     orig = config.use_dirty
     config.use_dirty = value
   end
@@ -35,7 +35,7 @@ def set_dirty(value)
 end
 
 def supports_dirty?
-  CouchRest::Model::Base.respond_to?(:use_dirty)
+  CouchBase::Model::Base.respond_to?(:use_dirty)
 end
 
 def run_benchmark

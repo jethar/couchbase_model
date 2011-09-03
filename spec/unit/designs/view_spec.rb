@@ -1,6 +1,6 @@
 require File.expand_path("../../../spec_helper", __FILE__)
 
-class DesignViewModel < CouchRest::Model::Base
+class DesignViewModel < CouchBase::Model::Base
   use_database DB
   property :name
   property :title
@@ -16,7 +16,7 @@ describe "Design View" do
   describe "(unit tests)" do
 
     before :each do
-      @klass = CouchRest::Model::Designs::View
+      @klass = CouchBase::Model::Designs::View
     end
 
     describe ".new" do
@@ -27,7 +27,7 @@ describe "Design View" do
         end
       end
 
-      describe "with CouchRest Model" do
+      describe "with CouchBase Model" do
 
         it "should setup attributes" do
           @obj = @klass.new(DesignViewModel, {}, 'test_view')
@@ -107,7 +107,7 @@ describe "Design View" do
         it "should wrap rows in ViewRow class" do
           @obj.should_receive(:execute).and_return(true)
           @obj.should_receive(:result).twice.and_return({'rows' => [{:foo => :bar}]})
-          CouchRest::Model::Designs::ViewRow.should_receive(:new).with({:foo => :bar}, @obj.model)
+          CouchBase::Model::Designs::ViewRow.should_receive(:new).with({:foo => :bar}, @obj.model)
           @obj.rows
         end
       end
@@ -661,7 +661,7 @@ describe "Design View" do
   describe "ViewRow" do
 
     before :all do
-      @klass = CouchRest::Model::Designs::ViewRow
+      @klass = CouchBase::Model::Designs::ViewRow
     end
 
     describe "intialize" do

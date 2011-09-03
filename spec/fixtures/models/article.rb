@@ -1,4 +1,4 @@
-class Article < CouchRest::Model::Base
+class Article < CouchBase::Model::Base
   use_database DB
   unique_id :slug
   

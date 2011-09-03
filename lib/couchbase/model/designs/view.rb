@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     module Designs
 
@@ -17,9 +17,9 @@ module CouchRest
         attr_accessor :owner, :model, :name, :query, :result
 
         # Initialize a new View object. This method should not be called from
-        # outside CouchRest Model.
+        # outside CouchBase Model.
         def initialize(parent, new_query = {}, name = nil)
-          if parent.is_a?(Class) && parent < CouchRest::Model::Base
+          if parent.is_a?(Class) && parent < CouchBase::Model::Base
             raise "Name must be provided for view to be initialized" if name.nil?
             self.model    = parent
             self.owner    = parent

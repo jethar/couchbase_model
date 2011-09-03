@@ -1,4 +1,4 @@
-class SaleEntry < CouchRest::Model::Base
+class SaleEntry < CouchBase::Model::Base
   use_database DB
 
   property :description

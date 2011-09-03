@@ -1,10 +1,10 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe CouchRest::Model::Connection do
+describe CouchBase::Model::Connection do
 
   before do
-    @class = Class.new(CouchRest::Model::Base)
+    @class = Class.new(CouchBase::Model::Base)
   end
 
   describe "instance methods" do
@@ -39,10 +39,10 @@ describe CouchRest::Model::Connection do
       @class.environment.should eql(:development)
     end
     it "should provide connection config file" do
-      @class.connection_config_file.should eql(File.join(Dir.pwd, 'config', 'couchdb.yml'))
+      @class.connection_config_file.should eql(File.join(Dir.pwd, 'config', 'couchbase.yml'))
     end
     it "should provided simple connection details" do
-      @class.connection[:prefix].should eql('couchrest')
+      @class.connection[:prefix].should eql('couchbase')
     end
 
   end
@@ -60,7 +60,7 @@ describe CouchRest::Model::Connection do
         @class.should respond_to(:database)
       end
       it "should provide a database object" do
-        @class.database.should be_a(CouchRest::Database)
+        @class.database.should be_a(CouchBase::Database)
       end
       it "should provide a database with default name" do
 
@@ -73,10 +73,10 @@ describe CouchRest::Model::Connection do
         @class.should respond_to(:server)
       end
       it "should provide a server object" do
-        @class.server.should be_a(CouchRest::Server)
+        @class.server.should be_a(CouchBase::Server)
       end
       it "should provide a server with default config" do
-        @class.server.uri.should eql("http://localhost:5984")
+        @class.server.uri.should eql("http://localhost:8091")
       end
       it "should allow the configuration to be overwritten" do
         @class.connection = {
@@ -102,13 +102,13 @@ describe CouchRest::Model::Connection do
       it "should join the database name correctly" do
         @class.connection[:suffix] = 'db'
         db = @class.prepare_database('test')
-        db.name.should eql('couchrest_test_db')
+        db.name.should eql('couchbase_test_db')
       end
 
       it "should ignore nil values in database name" do
         @class.connection[:suffix] = nil
         db = @class.prepare_database('test')
-        db.name.should eql('couchrest_test')
+        db.name.should eql('couchbase_test')
       end
     end
 
@@ -119,7 +119,7 @@ describe CouchRest::Model::Connection do
           @class.send(:connection_configuration).should eql(@class.connection)
         end
         it "should load file if available" do
-          @class.connection_config_file = File.join(FIXTURE_PATH, 'config', 'couchdb.yml')
+          @class.connection_config_file = File.join(FIXTURE_PATH, 'config', 'couchbase.yml')
           hash = @class.send(:connection_configuration)
           hash[:protocol].should eql('https')
           hash[:host].should eql('sample.cloudant.com')
@@ -132,7 +132,7 @@ describe CouchRest::Model::Connection do
           @class.send(:load_connection_config_file).should eql({})
         end
         it "should load file if available" do
-          @class.connection_config_file = File.join(FIXTURE_PATH, 'config', 'couchdb.yml')
+          @class.connection_config_file = File.join(FIXTURE_PATH, 'config', 'couchbase.yml')
           hash = @class.send(:load_connection_config_file)
           hash[:development].should_not be_nil
           @class.server.uri.should eql("https://test:user@sample.cloudant.com:443")

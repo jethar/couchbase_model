@@ -1,8 +1,8 @@
-module CouchRest
+module CouchBase
   module Model
     module Associations
 
-      # Basic support for relationships between CouchRest::Model::Base
+      # Basic support for relationships between CouchBase::Model::Base
       
       def self.included(base)
         base.extend(ClassMethods)
@@ -153,7 +153,7 @@ module CouchRest
             def #{attrib}(reload = false)
               return @#{attrib} unless @#{attrib}.nil? or reload
               ary = self.#{options[:foreign_key]}.collect{|i| #{options[:proxy]}.get(i)}
-              @#{attrib} = ::CouchRest::Model::CollectionOfProxy.new(ary, find_property('#{options[:foreign_key]}'), self)
+              @#{attrib} = ::CouchBase::Model::CollectionOfProxy.new(ary, find_property('#{options[:foreign_key]}'), self)
             end
           EOS
         end
@@ -161,7 +161,7 @@ module CouchRest
         def create_collection_of_setter(attrib, options)
           class_eval <<-EOS, __FILE__, __LINE__ + 1
             def #{attrib}=(value)
-              @#{attrib} = ::CouchRest::Model::CollectionOfProxy.new(value, find_property('#{options[:foreign_key]}'), self)
+              @#{attrib} = ::CouchBase::Model::CollectionOfProxy.new(value, find_property('#{options[:foreign_key]}'), self)
             end
           EOS
         end

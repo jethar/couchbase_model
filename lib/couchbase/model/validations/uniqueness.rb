@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module CouchRest
+module CouchBase
   module Model
     module Validations
 

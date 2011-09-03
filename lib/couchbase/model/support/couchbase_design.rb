@@ -1,5 +1,5 @@
 
-CouchRest::Design.class_eval do
+CouchBase::Design.class_eval do
 
   # Calculate and update the checksum of the Design document.
   # Used for ensuring the latest version has been sent to the database.
@@ -13,12 +13,12 @@ CouchRest::Design.class_eval do
     base = self.dup
     base.delete('_id')
     base.delete('_rev')
-    base.delete('couchrest-hash')
+    base.delete('couchbase-hash')
     result = nil
     flatten =
       lambda {|r|
         (recurse = lambda {|v|
-          if v.is_a?(Hash) || v.is_a?(CouchRest::Document)
+          if v.is_a?(Hash) || v.is_a?(CouchBase::Document)
             v.to_a.map{|v| recurse.call(v)}.flatten
           elsif v.is_a?(Array)
             v.flatten.map{|v| recurse.call(v)}
@@ -27,7 +27,7 @@ CouchRest::Design.class_eval do
           end
         }).call(r)
       }
-    self['couchrest-hash'] = Digest::MD5.hexdigest(flatten.call(base).sort.join(''))
+    self['couchbase-hash'] = Digest::MD5.hexdigest(flatten.call(base).sort.join(''))
   end
 
 end

@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe CouchRest::Model::Persistence do
+describe CouchBase::Model::Persistence do
 
   before(:each) do
     @obj = WithDefaultValues.new
@@ -10,11 +10,11 @@ describe CouchRest::Model::Persistence do
   describe "creating a new document from database" do
 
     it "should instantialize" do
-      doc = Article.build_from_database({'_id' => 'testitem1', '_rev' => 123, 'couchrest-type' => 'Article', 'name' => 'my test'})
+      doc = Article.build_from_database({'_id' => 'testitem1', '_rev' => 123, 'couchbase-type' => 'Article', 'name' => 'my test'})
       doc.class.should eql(Article)
     end
 
-    it "should instantialize of same class if no couchrest-type included from DB" do
+    it "should instantialize of same class if no couchbase-type included from DB" do
       doc = Article.build_from_database({'_id' => 'testitem1', '_rev' => 123, 'name' => 'my test'})
       doc.class.should eql(Article)
     end
@@ -156,7 +156,7 @@ describe CouchRest::Model::Persistence do
       
       it "should raise error if don't save the document" do
         @sobj.first_name = nil
-        lambda { @sobj.save! }.should raise_error(CouchRest::Model::Errors::Validations)
+        lambda { @sobj.save! }.should raise_error(CouchBase::Model::Errors::Validations)
       end
 
     end
@@ -261,7 +261,7 @@ describe CouchRest::Model::Persistence do
     end
     it "should make it go away" do
       @dobj.destroy
-      lambda{Basic.get!(@dobj.id)}.should raise_error(CouchRest::Model::DocumentNotFound)
+      lambda{Basic.get!(@dobj.id)}.should raise_error(CouchBase::Model::DocumentNotFound)
     end
     it "should freeze the object" do
       @dobj.destroy
@@ -271,7 +271,7 @@ describe CouchRest::Model::Persistence do
     it "trying to save after should fail" do
       @dobj.destroy
       lambda { @dobj.save }.should raise_error(StandardError)
-      lambda{Basic.get!(@dobj.id)}.should raise_error(CouchRest::Model::DocumentNotFound)
+      lambda{Basic.get!(@dobj.id)}.should raise_error(CouchBase::Model::DocumentNotFound)
     end
     it "should make destroyed? true" do
       @dobj.destroyed?.should be_false

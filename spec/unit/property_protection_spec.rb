@@ -3,7 +3,7 @@ require "spec_helper"
 describe "Model Attributes" do
 
   describe "no declarations" do
-    class NoProtection < CouchRest::Model::Base
+    class NoProtection < CouchBase::Model::Base
       use_database TEST_SERVER.default_database
       property :name
       property :phone
@@ -43,7 +43,7 @@ describe "Model Attributes" do
   end
 
   describe "Model Base", "accessible flag" do
-    class WithAccessible < CouchRest::Model::Base
+    class WithAccessible < CouchBase::Model::Base
       use_database TEST_SERVER.default_database
       property :name, :accessible => true
       property :admin, :default => false
@@ -80,7 +80,7 @@ describe "Model Attributes" do
   end
 
   describe "Model Base", "protected flag" do
-    class WithProtected < CouchRest::Model::Base
+    class WithProtected < CouchBase::Model::Base
       use_database TEST_SERVER.default_database
       property :name
       property :admin, :default => false, :protected => true
@@ -126,7 +126,7 @@ describe "Model Attributes" do
   end
 
   describe "Model Base", "mixing protected and accessible flags" do
-    class WithBothAndUnspecified < CouchRest::Model::Base
+    class WithBothAndUnspecified < CouchBase::Model::Base
       use_database TEST_SERVER.default_database
       property :name, :accessible => true
       property :admin, :default => false, :protected => true
@@ -146,7 +146,7 @@ describe "Model Attributes" do
   end
 
   describe "from database" do
-    class WithProtected < CouchRest::Model::Base
+    class WithProtected < CouchBase::Model::Base
       use_database TEST_SERVER.default_database
       property :name
       property :admin, :default => false, :protected => true

@@ -3,10 +3,10 @@
 # elements of the array.
 #
 
-module CouchRest::Model
+module CouchBase::Model
   class CastedArray < Array
-    include CouchRest::Model::CastedBy
-    include CouchRest::Model::Dirty
+    include CouchBase::Model::CastedBy
+    include CouchBase::Model::Dirty
     attr_accessor :casted_by_property
 
     def initialize(array, property, parent = nil)
@@ -31,32 +31,32 @@ module CouchRest::Model
 
     def []= index, obj
       value = instantiate_and_cast(obj, false)
-      couchrest_parent_will_change! if use_dirty? && value != self[index]
+      couchbase_parent_will_change! if use_dirty? && value != self[index]
       super(index, value)
     end
 
     def pop
-      couchrest_parent_will_change! if use_dirty? && self.length > 0
+      couchbase_parent_will_change! if use_dirty? && self.length > 0
       super
     end
 
     def shift
-      couchrest_parent_will_change! if use_dirty? && self.length > 0
+      couchbase_parent_will_change! if use_dirty? && self.length > 0
       super
     end
 
     def clear
-      couchrest_parent_will_change! if use_dirty? && self.length > 0
+      couchbase_parent_will_change! if use_dirty? && self.length > 0
       super
     end
 
     def delete(obj)
-      couchrest_parent_will_change! if use_dirty? && self.length > 0
+      couchbase_parent_will_change! if use_dirty? && self.length > 0
       super(obj)
     end
 
     def delete_at(index)
-      couchrest_parent_will_change! if use_dirty? && self.length > 0
+      couchbase_parent_will_change! if use_dirty? && self.length > 0
       super(index)
     end
 
@@ -70,7 +70,7 @@ module CouchRest::Model
 
     def instantiate_and_cast(obj, change = true)
       property = casted_by_property
-      couchrest_parent_will_change! if change && use_dirty?
+      couchbase_parent_will_change! if change && use_dirty?
       if casted_by && property && obj.class != property.type_class
         property.cast_value(casted_by, obj)
       else

@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     module DocumentQueries
       extend ActiveSupport::Concern
@@ -7,14 +7,14 @@ module CouchRest
 
         # Load all documents that have the model_type_key's field equal to the
         # name of the current class. Take the standard set of
-        # CouchRest::Database#view options.
+        # CouchBase::Database#view options.
         def all(opts = {}, &block)
           view(:all, opts, &block)
         end
         
         # Returns the number of documents that have the model_type_key's field
         # equal to the name of the current class. Takes the standard set of 
-        # CouchRest::Database#view options
+        # CouchBase::Database#view options
         def count(opts = {}, &block)
           all({:raw => true, :limit => 0}.merge(opts), &block)['total_rows']
         end
@@ -29,7 +29,7 @@ module CouchRest
         #
         # ==== Parameters
         # opts<Hash>::
-        # View options, see <tt>CouchRest::Database#view</tt> options for more info.
+        # View options, see <tt>CouchBase::Database#view</tt> options for more info.
         def first(opts = {})
           first_instance = self.all(opts.merge!(:limit => 1))
           first_instance.empty? ? nil : first_instance.first
@@ -46,7 +46,7 @@ module CouchRest
         #
         # ==== Parameters
         # opts<Hash>::
-        # View options, see <tt>CouchRest::Database#view</tt> options for more info.
+        # View options, see <tt>CouchBase::Database#view</tt> options for more info.
         def last(opts = {})
           first(opts.merge!(:descending => true))
         end
@@ -83,12 +83,12 @@ module CouchRest
         # id<String, Integer>:: Document ID
         # db<Database>:: optional option to pass a custom database to use
         def get!(id, db = database)
-          raise CouchRest::Model::DocumentNotFound if id.blank?
+          raise CouchBase::Model::DocumentNotFound if id.blank?
 
           doc = db.get id
           build_from_database(doc)
         rescue RestClient::ResourceNotFound
-          raise CouchRest::Model::DocumentNotFound
+          raise CouchBase::Model::DocumentNotFound
         end
         alias :find! :get!
         

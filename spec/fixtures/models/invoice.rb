@@ -1,4 +1,4 @@
-class Invoice < CouchRest::Model::Base
+class Invoice < CouchBase::Model::Base
   # Set the default database to use
   use_database DB
 

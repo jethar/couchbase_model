@@ -1,16 +1,16 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe CouchRest::Model::DesignDoc do
+describe CouchBase::Model::DesignDoc do
 
   before :all do
     reset_test_db!
   end
 
-  describe "CouchRest Extension" do
+  describe "CouchBase Extension" do
 
     it "should have created a checksum! method" do
-      ::CouchRest::Design.new.should respond_to(:checksum!)
+      ::CouchBase::Design.new.should respond_to(:checksum!)
     end
 
     it "should calculate a consistent checksum for model" do
@@ -23,7 +23,7 @@ describe CouchRest::Model::DesignDoc do
 
     it "should cache the generated checksum value" do
       Article.design_doc.checksum!
-      Article.design_doc['couchrest-hash'].should_not be_blank
+      Article.design_doc['couchbase-hash'].should_not be_blank
     end
   end
 
@@ -31,7 +31,7 @@ describe CouchRest::Model::DesignDoc do
 
     describe ".design_doc" do
       it "should provide Design document" do
-        Article.design_doc.should be_a(::CouchRest::Design)
+        Article.design_doc.should be_a(::CouchBase::Design)
       end
     end
 

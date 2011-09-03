@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     # :nodoc: Because I like inventing words
     module Proxyable
@@ -19,7 +19,7 @@ module CouchRest
           options[:class_name] ||= assoc_name.to_s.singularize.camelize
           class_eval <<-EOS, __FILE__, __LINE__ + 1
             def #{assoc_name}
-              @#{assoc_name} ||= CouchRest::Model::Proxyable::ModelProxy.new(::#{options[:class_name]}, self, self.class.to_s.underscore, #{db_method})
+              @#{assoc_name} ||= CouchBase::Model::Proxyable::ModelProxy.new(::#{options[:class_name]}, self, self.class.to_s.underscore, #{db_method})
             end
           EOS
         end

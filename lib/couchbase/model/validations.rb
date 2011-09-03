@@ -1,13 +1,13 @@
 # encoding: utf-8
 
-require "couchrest/model/validations/casted_model"
-require "couchrest/model/validations/uniqueness"
+require "couchbase/model/validations/casted_model"
+require "couchbase/model/validations/uniqueness"
 
 I18n.load_path << File.join(
   File.dirname(__FILE__), "validations", "locale", "en.yml"
 )
 
-module CouchRest
+module CouchBase
   module Model
 
     # Validations may be applied to both Model::Base and Model::CastedModel
@@ -46,7 +46,7 @@ module CouchRest
         #
         # Example:
         #
-        #   class Person < CouchRest::Model::Base
+        #   class Person < CouchBase::Model::Base
         #     property :title, String
         # 
         #     validates_uniqueness_of :title

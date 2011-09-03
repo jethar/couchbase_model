@@ -1,20 +1,20 @@
-module CouchRest::Model
+module CouchBase::Model
   module Embeddable
     extend ActiveSupport::Concern
 
     # Include Attributes early to ensure super() will work
-    include CouchRest::Attributes
+    include CouchBase::Attributes
 
     included do
-      include CouchRest::Model::Configuration
-      include CouchRest::Model::Properties
-      include CouchRest::Model::PropertyProtection
-      include CouchRest::Model::Associations
-      include CouchRest::Model::Validations
-      include CouchRest::Model::Callbacks
-      include CouchRest::Model::CastedBy
-      include CouchRest::Model::Dirty
-      include CouchRest::Model::Callbacks
+      include CouchBase::Model::Configuration
+      include CouchBase::Model::Properties
+      include CouchBase::Model::PropertyProtection
+      include CouchBase::Model::Associations
+      include CouchBase::Model::Validations
+      include CouchBase::Model::Callbacks
+      include CouchBase::Model::CastedBy
+      include CouchBase::Model::Dirty
+      include CouchBase::Model::Callbacks
 
       class_eval do
         # Override CastedBy's base_doc?
@@ -26,7 +26,7 @@ module CouchRest::Model
     end
 
     # Initialize a new Casted Model. Accepts the same
-    # options as CouchRest::Model::Base for preparing and initializing
+    # options as CouchBase::Model::Base for preparing and initializing
     # attributes.
     def initialize(keys = {}, options = {})
       super()
@@ -71,7 +71,7 @@ module CouchRest::Model
   module CastedModel
     extend ActiveSupport::Concern
     included do
-      include CouchRest::Model::Embeddable
+      include CouchBase::Model::Embeddable
     end
   end
 

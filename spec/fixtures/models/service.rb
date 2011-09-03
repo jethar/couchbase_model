@@ -1,4 +1,4 @@
-class Service < CouchRest::Model::Base
+class Service < CouchBase::Model::Base
   # Set the default database to use
   use_database DB
   

@@ -1,8 +1,8 @@
 # encoding: utf-8
-module CouchRest::Model
+module CouchBase::Model
   class Property
 
-    include ::CouchRest::Model::Typecast
+    include ::CouchBase::Model::Typecast
 
     attr_reader :name, :type, :type_class, :read_only, :alias, :default, :casted, :init_method, :options
 
@@ -95,7 +95,7 @@ module CouchRest::Model
         else
           base = type.is_a?(Array) ? type.first : type
           base = Object if base.nil?
-          raise "Defining a property type as a #{type.class.name.humanize} is not supported in CouchRest Model!" if base.class != Class
+          raise "Defining a property type as a #{type.class.name.humanize} is not supported in CouchBase Model!" if base.class != Class
           @type_class = base
           @type = type
         end

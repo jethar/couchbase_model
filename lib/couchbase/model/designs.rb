@@ -1,13 +1,13 @@
 
 #### NOTE Work in progress! Not yet used!
 
-module CouchRest
+module CouchBase
   module Model
 
-    # A design block in CouchRest Model groups together the functionality of CouchDB's
+    # A design block in CouchBase Model groups together the functionality of CouchDB's
     # design documents in a simple block definition.
     #
-    #   class Person < CouchRest::Model::Base
+    #   class Person < CouchBase::Model::Base
     #     property :name
     #     timestamps!
     #
@@ -32,7 +32,7 @@ module CouchRest
 
         # Override the default page pagination value:
         #
-        #   class Person < CouchRest::Model::Base
+        #   class Person < CouchBase::Model::Base
         #     paginates_per 10
         #   end
         #
@@ -79,7 +79,7 @@ module CouchRest
         def create_view_method(name)
           model.class_eval <<-EOS, __FILE__, __LINE__ + 1
             def self.#{name}(opts = {})
-              CouchRest::Model::Designs::View.new(self, opts, '#{name}')
+              CouchBase::Model::Designs::View.new(self, opts, '#{name}')
             end
           EOS
         end

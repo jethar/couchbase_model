@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     module ClassProxy
       
@@ -14,7 +14,7 @@ module CouchRest
         #  
         # ==== Example:
         #  
-        #   db = CouchRest::Database.new(...)
+        #   db = CouchBase::Database.new(...)
         #   articles = Article.on(db)
         #
         #   articles.all { ... }

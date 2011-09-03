@@ -1,27 +1,27 @@
-module CouchRest
+module CouchBase
   module Model
-    class Base < CouchRest::Document
+    class Base < CouchBase::Document
 
       extend ActiveModel::Naming
 
-      include CouchRest::Model::Configuration
-      include CouchRest::Model::Connection
-      include CouchRest::Model::Persistence
-      include CouchRest::Model::DocumentQueries
-      include CouchRest::Model::Views
-      include CouchRest::Model::DesignDoc
-      include CouchRest::Model::ExtendedAttachments
-      include CouchRest::Model::ClassProxy
-      include CouchRest::Model::Proxyable
-      include CouchRest::Model::Collection
-      include CouchRest::Model::PropertyProtection
-      include CouchRest::Model::Associations
-      include CouchRest::Model::Validations
-      include CouchRest::Model::Callbacks
-      include CouchRest::Model::Designs
-      include CouchRest::Model::CastedBy
-      include CouchRest::Model::Dirty
-      include CouchRest::Model::Callbacks
+      include CouchBase::Model::Configuration
+      include CouchBase::Model::Connection
+      include CouchBase::Model::Persistence
+      include CouchBase::Model::DocumentQueries
+      include CouchBase::Model::Views
+      include CouchBase::Model::DesignDoc
+      include CouchBase::Model::ExtendedAttachments
+      include CouchBase::Model::ClassProxy
+      include CouchBase::Model::Proxyable
+      include CouchBase::Model::Collection
+      include CouchBase::Model::PropertyProtection
+      include CouchBase::Model::Associations
+      include CouchBase::Model::Validations
+      include CouchBase::Model::Callbacks
+      include CouchBase::Model::Designs
+      include CouchBase::Model::CastedBy
+      include CouchBase::Model::Dirty
+      include CouchBase::Model::Callbacks
 
       def self.subclasses
         @subclasses ||= []
@@ -29,7 +29,7 @@ module CouchRest
 
       def self.inherited(subklass)
         super
-        subklass.send(:include, CouchRest::Model::Properties)
+        subklass.send(:include, CouchBase::Model::Properties)
 
         subklass.class_eval <<-EOS, __FILE__, __LINE__ + 1
           def self.inherited(subklass)
@@ -42,7 +42,7 @@ module CouchRest
         subclasses << subklass
       end
 
-      # Instantiate a new CouchRest::Model::Base by preparing all properties
+      # Instantiate a new CouchBase::Model::Base by preparing all properties
       # using the provided document hash.
       #
       # Options supported:
@@ -111,7 +111,7 @@ module CouchRest
       # Camparison of the database is required in case the 
       # model has been proxied or loaded elsewhere.
       #
-      # A Basic CouchRest document will only ever compare using 
+      # A Basic CouchBase document will only ever compare using 
       # a Hash comparison on the attributes.
       def == other
         return false unless other.is_a?(Base)

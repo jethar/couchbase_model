@@ -1,9 +1,9 @@
-module CouchRest
+module CouchBase
   module Model
     module PropertyProtection
       extend ActiveSupport::Concern
 
-      # Property protection from mass assignment to CouchRest::Model properties
+      # Property protection from mass assignment to CouchBase::Model properties
       #
       # Protected methods will be removed from
       #  * new

@@ -1,8 +1,8 @@
 require 'rails/generators/named_base'
 require 'rails/generators/active_model'
-require 'couchrest_model'
+require 'couchbase_model'
 
-module CouchrestModel
+module CouchbaseModel
   module Generators
     class Base < Rails::Generators::NamedBase #:nodoc:
       

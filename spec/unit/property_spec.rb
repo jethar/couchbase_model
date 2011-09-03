@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe CouchRest::Model::Property do
+describe CouchBase::Model::Property do
 
   before(:each) do
     reset_test_db!
@@ -348,64 +348,64 @@ end
 describe "Property Class" do
 
   it "should provide name as string" do
-    property = CouchRest::Model::Property.new(:test, String)
+    property = CouchBase::Model::Property.new(:test, String)
     property.name.should eql('test')
     property.to_s.should eql('test')
   end
 
   it "should provide class from type" do
-    property = CouchRest::Model::Property.new(:test, String)
+    property = CouchBase::Model::Property.new(:test, String)
     property.type_class.should eql(String)
   end
 
   it "should provide base class from type in array" do
-    property = CouchRest::Model::Property.new(:test, [String])
+    property = CouchBase::Model::Property.new(:test, [String])
     property.type_class.should eql(String)
   end
 
   it "should raise error if type as string requested" do
     lambda {
-      property = CouchRest::Model::Property.new(:test, 'String')
+      property = CouchBase::Model::Property.new(:test, 'String')
     }.should raise_error
   end
 
   it "should leave type nil and return class as nil also" do
-    property = CouchRest::Model::Property.new(:test, nil)
+    property = CouchBase::Model::Property.new(:test, nil)
     property.type.should be_nil
     property.type_class.should be_nil
   end
 
   it "should convert empty type array to [Object]" do
-    property = CouchRest::Model::Property.new(:test, [])
+    property = CouchBase::Model::Property.new(:test, [])
     property.type_class.should eql(Object)
   end
 
   it "should set init method option or leave as 'new'" do
     # (bad example! Time already typecast)
-    property = CouchRest::Model::Property.new(:test, Time)
+    property = CouchBase::Model::Property.new(:test, Time)
     property.init_method.should eql('new')
-    property = CouchRest::Model::Property.new(:test, Time, :init_method => 'parse')
+    property = CouchBase::Model::Property.new(:test, Time, :init_method => 'parse')
     property.init_method.should eql('parse')
   end
 
   describe "#build" do
     it "should allow instantiation of new object" do
-      property = CouchRest::Model::Property.new(:test, Date)
+      property = CouchBase::Model::Property.new(:test, Date)
       obj = property.build(2011, 05, 21)
       obj.should eql(Date.new(2011, 05, 21))
     end
     it "should use init_method if provided" do
-      property = CouchRest::Model::Property.new(:test, Date, :init_method => 'parse')
+      property = CouchBase::Model::Property.new(:test, Date, :init_method => 'parse')
       obj = property.build("2011-05-21")
       obj.should eql(Date.new(2011, 05, 21))
     end
     it "should use init_method Proc if provided" do
-      property = CouchRest::Model::Property.new(:test, Date, :init_method => Proc.new{|v| Date.parse(v)})
+      property = CouchBase::Model::Property.new(:test, Date, :init_method => Proc.new{|v| Date.parse(v)})
       obj = property.build("2011-05-21")
       obj.should eql(Date.new(2011, 05, 21))
     end
     it "should raise error if no class" do
-      property = CouchRest::Model::Property.new(:test)
+      property = CouchBase::Model::Property.new(:test)
       lambda { property.build }.should raise_error(StandardError, /Cannot build/)
     end
   end
@@ -414,32 +414,32 @@ describe "Property Class" do
 
   describe "casting" do
     it "should cast a value" do
-      property = CouchRest::Model::Property.new(:test, Date)
+      property = CouchBase::Model::Property.new(:test, Date)
       parent = mock("FooObject")
       property.cast(parent, "2010-06-16").should eql(Date.new(2010, 6, 16))
       property.cast_value(parent, "2010-06-16").should eql(Date.new(2010, 6, 16))
     end
 
     it "should cast an array of values" do
-      property = CouchRest::Model::Property.new(:test, [Date])
+      property = CouchBase::Model::Property.new(:test, [Date])
       parent = mock("FooObject")
       property.cast(parent, ["2010-06-01", "2010-06-02"]).should eql([Date.new(2010, 6, 1), Date.new(2010, 6, 2)])
     end
 
     it "should set a CastedArray on array of Objects" do
-      property = CouchRest::Model::Property.new(:test, [Object])
+      property = CouchBase::Model::Property.new(:test, [Object])
       parent = mock("FooObject")
-      property.cast(parent, ["2010-06-01", "2010-06-02"]).class.should eql(CouchRest::Model::CastedArray)
+      property.cast(parent, ["2010-06-01", "2010-06-02"]).class.should eql(CouchBase::Model::CastedArray)
     end
 
     it "should set a CastedArray on array of Strings" do
-      property = CouchRest::Model::Property.new(:test, [String])
+      property = CouchBase::Model::Property.new(:test, [String])
       parent = mock("FooObject")
-      property.cast(parent, ["2010-06-01", "2010-06-02"]).class.should eql(CouchRest::Model::CastedArray)
+      property.cast(parent, ["2010-06-01", "2010-06-02"]).class.should eql(CouchBase::Model::CastedArray)
     end
 
     it "should allow instantion of model via CastedArray#build" do
-      property = CouchRest::Model::Property.new(:dates, [Date])
+      property = CouchBase::Model::Property.new(:dates, [Date])
       parent = Article.new
       ary = property.cast(parent, [])
       obj = ary.build(2011, 05, 21)
@@ -456,20 +456,20 @@ describe "Property Class" do
         def initialize(val); self.ary = val; end
         def as_json; ary; end
       end
-      property = CouchRest::Model::Property.new(:test, prop)
+      property = CouchBase::Model::Property.new(:test, prop)
       parent = mock("FooClass")
       cast = property.cast(parent, [1, 2])
       cast.ary.should eql([1, 2])
     end
 
     it "should set parent as casted_by object in CastedArray" do
-      property = CouchRest::Model::Property.new(:test, [Object])
+      property = CouchBase::Model::Property.new(:test, [Object])
       parent = mock("FooObject")
       property.cast(parent, ["2010-06-01", "2010-06-02"]).casted_by.should eql(parent)
     end
 
     it "should set casted_by on new value" do
-      property = CouchRest::Model::Property.new(:test, CatToy)
+      property = CouchBase::Model::Property.new(:test, CatToy)
       parent = mock("CatObject")
       cast = property.cast(parent, {:name => 'catnip'})
       cast.casted_by.should eql(parent)

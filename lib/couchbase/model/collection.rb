@@ -1,8 +1,8 @@
-module CouchRest
+module CouchBase
   module Model
     # Warning! The Collection module is seriously depricated.
     # Use the new Design Views instead, as this code copies many other parts
-    # of CouchRest Model.
+    # of CouchBase Model.
     #
     # Expect this to be removed soon.
     #
@@ -86,7 +86,7 @@ module CouchRest
 
           default_view_options = (design_doc.class == Design && 
               design_doc['views'][view_name.to_s] &&
-              design_doc['views'][view_name.to_s]["couchrest-defaults"]) || {}
+              design_doc['views'][view_name.to_s]["couchbase-defaults"]) || {}
           view_options = default_view_options.merge(options)
           view_options.delete(:database)
 

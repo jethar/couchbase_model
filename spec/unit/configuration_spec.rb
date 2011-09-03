@@ -1,10 +1,10 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe CouchRest::Model::Configuration do
+describe CouchBase::Model::Configuration do
 
   before do
-    @class = Class.new(CouchRest::Model::Base)
+    @class = Class.new(CouchBase::Model::Base)
   end
 
   describe '.configure' do
@@ -67,7 +67,7 @@ describe CouchRest::Model::Configuration do
       Cat.instance_eval do
         model_type_key 'cat-type'
       end
-      CouchRest::Model::Base.model_type_key.should eql(default_model_key)
+      CouchBase::Model::Base.model_type_key.should eql(default_model_key)
       Cat.model_type_key.should eql('cat-type')
       cat = Cat.new
       cat.model_type_key.should eql('cat-type')

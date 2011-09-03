@@ -1,4 +1,4 @@
-module CouchRest
+module CouchBase
   module Model
     module Views
       extend ActiveSupport::Concern
@@ -45,16 +45,16 @@ module CouchRest
         #   }
         #  
         # It can be queried by calling <tt>Post.by_date</tt> which accepts all
-        # valid options for CouchRest::Database#view. In addition, calling with
+        # valid options for CouchBase::Database#view. In addition, calling with
         # the <tt>:raw => true</tt> option will return the view rows
         # themselves. By default <tt>Post.by_date</tt> will return the
         # documents included in the generated view.
         #  
-        # Calling with :database => [instance of CouchRest::Database] will
+        # Calling with :database => [instance of CouchBase::Database] will
         # send the query to a specific database, otherwise it will go to
         # the model's default database (use_database)
         #  
-        # CouchRest::Database#view options can be applied at view definition
+        # CouchBase::Database#view options can be applied at view definition
         # time as defaults, and they will be curried and used at view query
         # time. Or they can be overridden at query time.
         #  
@@ -69,7 +69,7 @@ module CouchRest
         #  
         # To understand the capabilities of this view system more completely,
         # it is recommended that you read the RSpec file at
-        # <tt>spec/couchrest/more/extended_doc_spec.rb</tt>.
+        # <tt>spec/couchbase/more/extended_doc_spec.rb</tt>.
 
         def view_by(*keys)
           opts = keys.pop if keys.last.is_a?(Hash)

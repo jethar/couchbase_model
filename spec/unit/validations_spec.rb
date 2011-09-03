@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe CouchRest::Model::Validations do
+describe CouchBase::Model::Validations do
 
   describe "Uniqueness" do
 

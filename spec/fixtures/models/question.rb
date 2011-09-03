@@ -1,5 +1,5 @@
 class Question
-  include ::CouchRest::Model::Embeddable
+  include ::CouchBase::Model::Embeddable
 
   property :q
   property :a

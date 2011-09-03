@@ -1,4 +1,4 @@
-class WithDefaultValues < CouchRest::Model::Base
+class WithDefaultValues < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   property :preset, Object, :default => {:right => 10, :top_align => false}
   property :set_by_proc, Time, :default => Proc.new{Time.now}
@@ -9,7 +9,7 @@ class WithDefaultValues < CouchRest::Model::Base
   timestamps!
 end
 
-class WithSimplePropertyType < CouchRest::Model::Base
+class WithSimplePropertyType < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   property :name, String
   property :preset, String, :default => 'none'
@@ -17,7 +17,7 @@ class WithSimplePropertyType < CouchRest::Model::Base
   timestamps!
 end
 
-class WithCallBacks < CouchRest::Model::Base
+class WithCallBacks < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   property :name
   property :run_before_validation
@@ -84,19 +84,19 @@ class WithCallBacks < CouchRest::Model::Base
 end
 
 # Following two fixture classes have __intentionally__ diffent syntax for setting the validation context
-class WithContextualValidationOnCreate < CouchRest::Model::Base
+class WithContextualValidationOnCreate < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   property(:name, String)
   validates(:name, :presence => {:on => :create})
 end
 
-class WithContextualValidationOnUpdate < CouchRest::Model::Base
+class WithContextualValidationOnUpdate < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   property(:name, String)
   validates(:name, :presence => true, :on => :update)
 end
 
-class WithTemplateAndUniqueID < CouchRest::Model::Base
+class WithTemplateAndUniqueID < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   unique_id do |model|
     model.slug
@@ -106,7 +106,7 @@ class WithTemplateAndUniqueID < CouchRest::Model::Base
   property :has_no_default
 end
 
-class WithGetterAndSetterMethods < CouchRest::Model::Base
+class WithGetterAndSetterMethods < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
 
   property :other_arg
@@ -119,7 +119,7 @@ class WithGetterAndSetterMethods < CouchRest::Model::Base
   end
 end
 
-class WithAfterInitializeMethod < CouchRest::Model::Base
+class WithAfterInitializeMethod < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
 
   property :some_value
@@ -130,17 +130,17 @@ class WithAfterInitializeMethod < CouchRest::Model::Base
 
 end
 
-class WithUniqueValidation < CouchRest::Model::Base
+class WithUniqueValidation < CouchBase::Model::Base
   use_database DB
   property :title
   validates_uniqueness_of :title
 end
-class WithUniqueValidationProxy < CouchRest::Model::Base
+class WithUniqueValidationProxy < CouchBase::Model::Base
   use_database DB
   property :title
   validates_uniqueness_of :title, :proxy => 'proxy'
 end
-class WithUniqueValidationView < CouchRest::Model::Base
+class WithUniqueValidationView < CouchBase::Model::Base
   use_database DB
   attr_accessor :code
   unique_id :code
@@ -152,7 +152,7 @@ class WithUniqueValidationView < CouchRest::Model::Base
   validates_uniqueness_of :code, :view => 'all'
 end
 
-class WithScopedUniqueValidation < CouchRest::Model::Base
+class WithScopedUniqueValidation < CouchBase::Model::Base
   use_database DB
 
   property :parent_id

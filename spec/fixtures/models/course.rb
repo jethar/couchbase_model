@@ -1,7 +1,7 @@
 require 'question'
 require 'person'
 
-class Course < CouchRest::Model::Base
+class Course < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   
   property :title, String

@@ -1,7 +1,7 @@
 require 'cat'
 
 class Person
-  include ::CouchRest::Model::Embeddable
+  include ::CouchBase::Model::Embeddable
   property :pet, Cat
   property :name, [String]
   

@@ -3,11 +3,11 @@ require 'spec_helper'
 require 'test/unit/assertions'
 require 'active_model/lint'
 
-class CompliantModel < CouchRest::Model::Base
+class CompliantModel < CouchBase::Model::Base
 end
 
 
-describe CouchRest::Model::Base do
+describe CouchBase::Model::Base do
   include Test::Unit::Assertions
   include ActiveModel::Lint::Tests
 

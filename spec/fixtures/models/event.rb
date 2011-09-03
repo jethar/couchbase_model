@@ -1,4 +1,4 @@
-class Event < CouchRest::Model::Base
+class Event < CouchBase::Model::Base
   use_database DB
   
   property :subject

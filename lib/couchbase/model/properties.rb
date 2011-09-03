@@ -1,5 +1,5 @@
 # encoding: utf-8
-module CouchRest
+module CouchBase
   module Model
     module Properties
       extend ActiveSupport::Concern
@@ -41,7 +41,7 @@ module CouchRest
       def write_attribute(property, value)
         prop = find_property!(property)
         value = prop.is_a?(String) ? value : prop.cast(self, value)
-        couchrest_attribute_will_change!(prop.name) if use_dirty? && self[prop.name] != value
+        couchbase_attribute_will_change!(prop.name) if use_dirty? && self[prop.name] != value
         self[prop.name] = value
       end
 
@@ -130,7 +130,7 @@ module CouchRest
       module ClassMethods
 
         def property(name, *options, &block)
-          raise "Invalid property definition, '#{name}' already used for CouchRest Model type field" if name.to_s == model_type_key.to_s && CouchRest::Model::Base >= self
+          raise "Invalid property definition, '#{name}' already used for CouchBase Model type field" if name.to_s == model_type_key.to_s && CouchBase::Model::Base >= self
           opts = { }
           type = options.shift
           if type.class != Hash

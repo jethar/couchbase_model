@@ -4,7 +4,7 @@ I18n.load_path << File.join(
   File.dirname(__FILE__), "validations", "locale", "en.yml"
 )
 
-module CouchRest
+module CouchBase
   module Model
 
     # This applies to both Model::Base and Model::CastedModel
@@ -24,14 +24,14 @@ module CouchRest
         doc && !doc.disable_dirty
       end
 
-      def couchrest_attribute_will_change!(attr)
+      def couchbase_attribute_will_change!(attr)
         return if attr.nil? || !use_dirty?
         attribute_will_change!(attr)
-        couchrest_parent_will_change!
+        couchbase_parent_will_change!
       end
 
-      def couchrest_parent_will_change!
-        casted_by.couchrest_attribute_will_change!(casted_by_property.name) if casted_by_property
+      def couchbase_parent_will_change!
+        casted_by.couchbase_attribute_will_change!(casted_by_property.name) if casted_by_property
       end
 
     end

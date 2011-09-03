@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe CouchRest::Model::Views do
+describe CouchBase::Model::Views do
 
-  class Unattached < CouchRest::Model::Base
+  class Unattached < CouchBase::Model::Base
     property :title
     property :questions
     property :professor
@@ -201,7 +201,7 @@ describe CouchRest::Model::Views do
     it "should make the design doc" do
       @as = Course.by_dept
       @doc = Course.design_doc
-      @doc["views"]["by_dept"]["map"].should_not include("couchrest")
+      @doc["views"]["by_dept"]["map"].should_not include("couchbase")
     end
     it "should not look for class" do
       @as = Course.by_dept
@@ -309,7 +309,7 @@ describe CouchRest::Model::Views do
         'quentin']
       articles[1].title.should == 'not junk'
     end
-    it "should be queryable with couchrest options" do
+    it "should be queryable with couchbase options" do
       articles = Article.by_user_id_and_date :limit => 1, :startkey => 'quentin'
       articles.length.should == 1
       articles[0].title.should == "even more interesting"

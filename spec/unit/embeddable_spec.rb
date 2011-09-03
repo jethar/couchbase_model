@@ -2,7 +2,7 @@
 require "spec_helper"
 
 class WithCastedModelMixin
-  include CouchRest::Model::Embeddable
+  include CouchBase::Model::Embeddable
   property :name
   property :no_value
   property :details, Object, :default => {}
@@ -10,11 +10,11 @@ class WithCastedModelMixin
 end
 
 class OldFashionedMixin < Hash
-  include CouchRest::Model::CastedModel
+  include CouchBase::Model::CastedModel
   property :name
 end
 
-class DummyModel < CouchRest::Model::Base
+class DummyModel < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   raise "Default DB not set" if TEST_SERVER.default_database.nil?
   property :casted_attribute, WithCastedModelMixin
@@ -29,7 +29,7 @@ class DummyModel < CouchRest::Model::Base
 end
 
 class WithCastedCallBackModel
-  include CouchRest::Model::Embeddable
+  include CouchBase::Model::Embeddable
   property :name
   property :run_before_validation
   property :run_after_validation
@@ -44,13 +44,13 @@ class WithCastedCallBackModel
   end
 end
 
-class CastedCallbackDoc < CouchRest::Model::Base
+class CastedCallbackDoc < CouchBase::Model::Base
   use_database TEST_SERVER.default_database
   raise "Default DB not set" if TEST_SERVER.default_database.nil?
   property :callback_model, WithCastedCallBackModel
 end
 
-describe CouchRest::Model::Embeddable do
+describe CouchBase::Model::Embeddable do
 
   describe "isolated" do
     before(:each) do
@@ -71,7 +71,7 @@ describe CouchRest::Model::Embeddable do
     end
     it "should call after_initialize callback if available" do
       klass = Class.new do
-        include CouchRest::Model::CastedModel
+        include CouchBase::Model::CastedModel
         after_initialize :set_name
         property :name
         def set_name; self.name = "foobar"; end
@@ -81,7 +81,7 @@ describe CouchRest::Model::Embeddable do
     end
     it "should allow override of initialize with super" do
       klass = Class.new do
-        include CouchRest::Model::Embeddable
+        include CouchBase::Model::Embeddable
         after_initialize :set_name
         property :name
         def set_name; self.name = "foobar"; end
@@ -288,7 +288,7 @@ describe CouchRest::Model::Embeddable do
       @cat.toys.push(toy)
       @cat.save.should be_true
       @cat = Cat.get @cat.id
-      @cat.toys.class.should == CouchRest::Model::CastedArray
+      @cat.toys.class.should == CouchBase::Model::CastedArray
       @cat.toys.first.class.should == CatToy
       @cat.toys.first.should === toy
     end

@@ -1,11 +1,11 @@
-class User < CouchRest::Model::Base
+class User < CouchBase::Model::Base
   # Set the default database to use
   use_database DB
   property :name, :accessible => true
   property :admin                     # this will be automatically protected
 end
 
-class SpecialUser < CouchRest::Model::Base
+class SpecialUser < CouchBase::Model::Base
   # Set the default database to use
   use_database DB
   property :name                      # this will not be protected

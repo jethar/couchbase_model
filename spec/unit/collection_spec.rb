@@ -79,7 +79,7 @@ describe "Collections" do
   it "should pass database parameter to pager" do
     proxy = mock(:proxy)
     proxy.stub!(:paginate)
-    ::CouchRest::Model::Collection::CollectionProxy.should_receive(:new).with('database', anything(), anything(), anything(), anything()).and_return(proxy)
+    ::CouchBase::Model::Collection::CollectionProxy.should_receive(:new).with('database', anything(), anything(), anything(), anything()).and_return(proxy)
     Article.paginate(:design_doc => 'Article', :view_name => 'by_date', :database => 'database')
   end
 

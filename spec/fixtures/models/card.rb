@@ -1,6 +1,6 @@
 require 'person'
 
-class Card < CouchRest::Model::Base 
+class Card < CouchBase::Model::Base 
   # Set the default database to use
   use_database DB
   
